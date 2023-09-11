@@ -1,16 +1,14 @@
-export function isLastThursdayPast(dateString: string) {
+function isLastThursdayPast(dateString: string) {
     const inputDate = new Date(dateString);
     const currentDate = new Date();
     const currentDayOfWeek = currentDate.getDay();
     const daysUntilLastFriday = (currentDayOfWeek + 7 - 5) % 7;
-
     const lastFriday = new Date(currentDate);
     lastFriday.setDate(currentDate.getDate() - daysUntilLastFriday);
-
     return (inputDate.getDate() === lastFriday.getDate());
 }
 
-export function formatDate(inputDate: string) {
+function formatDate(inputDate: string) {
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December'
@@ -31,3 +29,13 @@ export function formatDate(inputDate: string) {
         return null;
     }
 }
+
+export function filterMoviesByDate(data: any) {
+    const filteredData = data.filter((item: any) => {
+        if (isLastThursdayPast(item.releaseDate)) {
+            return item;
+        }
+    });
+    return filteredData;
+}
+

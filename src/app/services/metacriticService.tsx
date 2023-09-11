@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import { filterMoviesByDate, isLastThursdayPast } from "./dateService";
 
 const getDataFromMetacritic = async () => {
     const browser = await puppeteer.launch({
@@ -18,7 +19,7 @@ const getDataFromMetacritic = async () => {
             return { movie: element.querySelector('h3')?.textContent, releaseDate: element.querySelector('span')?.textContent };
         });
     });
-    return movies
+    return (filterMoviesByDate(movies))
 }
 
 export const getMoviesList = async () => {
