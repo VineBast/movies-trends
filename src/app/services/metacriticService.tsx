@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
-import { filterMoviesByDate, isLastThursdayPast } from "./dateService";
+import { filterMoviesByDate } from "./dateService";
 
-const getDataFromMetacritic = async () => {
+export const getMoviesList = async () => {
     const browser = await puppeteer.launch({
         headless: true,
         defaultViewport: null,
@@ -20,9 +20,4 @@ const getDataFromMetacritic = async () => {
         });
     });
     return (filterMoviesByDate(movies))
-}
-
-export const getMoviesList = async () => {
-    let data = await getDataFromMetacritic();
-    console.log('data', data);
 }
