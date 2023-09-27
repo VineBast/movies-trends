@@ -1,14 +1,16 @@
+import { Suspense } from 'react';
 import { Card } from './components/Card';
 import styles from './page.module.css'
-import { getLetterboxdData } from './services/letterboxdService';
-import { getMoviesList } from './services/metacriticService';
+import { Loading } from './components/Loading';
 
 export default function Home() {
 
   return (
     <main className={styles.main}>
       <div>
-        <Card />
+        <Suspense fallback={<Loading />}>
+          <Card />
+        </Suspense>
       </div>
       <div className={styles.description}></div>
     </main>
