@@ -1,5 +1,5 @@
 export const Loading = () => {
-    return(
-        <div>Loading...</div>
+    return (
+        <span className="loading loading-infinity loading-lg"></span>
     )
 }

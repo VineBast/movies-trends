@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { filterMoviesByDate } from "./dateService";
+import { filterMoviesByDate } from "../utils/dateService";
 
 export const getMoviesList = async () => {
     const browser = await puppeteer.launch({
@@ -16,9 +16,9 @@ export const getMoviesList = async () => {
     await page.waitForSelector('.c-finderProductCard');
     let movies = await page.$$eval('.c-finderProductCard', (elements) => {
         return elements.map((element) => {
-            return { movie: element.querySelector('h3')?.textContent, releaseDate: element.querySelectorAll('span')[1]?.textContent };
+            return { movieName: element.querySelector('h3')?.textContent, releaseDate: element.querySelectorAll('span')[1]?.textContent };
         });
     });
-    console.log("movies: ", movies);
+    console.log("metaMovies: ", movies);
     return (filterMoviesByDate(movies))
 }

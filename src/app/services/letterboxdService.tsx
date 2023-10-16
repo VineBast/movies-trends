@@ -10,11 +10,12 @@ function extractHTMLCount(elementHTML: string) {
 }
 
 function tranformMovieName(movieName: string) {
+  console.log('movieName:', movieName);
   const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-');
   return replacedString;
 }
 
-const getTrend = async (movieName: string) => {
+const getTrend = async (movieName: string, page: Page) => {
 
   let transformedMovieName = tranformMovieName(movieName);
 
@@ -22,12 +23,12 @@ const getTrend = async (movieName: string) => {
 
   let url = "https://letterboxd.com/film/" + transformedMovieName + "";
 
-  const browser = await puppeteer.launch({
+  /* const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,
-  });
+  }); */
 
-  const page = await browser.newPage();
+  //const page = await browser.newPage();
 
   await page.goto(url, {
     waitUntil: "domcontentloaded",
@@ -36,7 +37,7 @@ const getTrend = async (movieName: string) => {
   let watchesHTML = '';
   try {
     await page.waitForSelector('.filmstat-watches');
-    watchesHTML = await page.$eval('.icon-watched', (element) => {
+    watchesHTML = await page.$eval('.icon-watched', (element: { outerHTML: any; }) => {
       return element.outerHTML;
     });
   } catch (e) {
@@ -45,14 +46,14 @@ const getTrend = async (movieName: string) => {
   let likesHTML = '';
   try {
     await page.waitForSelector('.filmstat-likes');
-    likesHTML = await page.$eval('.icon-liked', (element) => {
+    likesHTML = await page.$eval('.icon-liked', (element: { outerHTML: any; }) => {
       return element.outerHTML;
     });
   } catch (e) {
     return '';
   }
 
-  await page.close();
+  //await page.close();
 
   let watchesCount = extractHTMLCount(watchesHTML);
   let likesCount = extractHTMLCount(likesHTML);
@@ -61,13 +62,25 @@ const getTrend = async (movieName: string) => {
 }
 
 export const getLetterboxdData = async (moviesList: any) => {
+  //console.log('moviesList: ', moviesList);
 
   let moviesListTrends = [];
-  console.log("movieslist", moviesList)
+  //console.log("movieslist", moviesList)
+  const browser = await puppeteer.launch({
+    headless: true,
+    defaultViewport: null,
+  });
+
+  const page = await browser.newPage();
+
   for (let i = 0; i < moviesList.length; i++) {
-    //const page = await browser.newPage();
-    moviesListTrends.push(await getTrend(moviesList[i].movie))
+    //moviesListTrends.push(await getTrend(moviesList[i].movieName))
+    let dataFromLetterboxd = await getTrend(moviesList[i].movieName, page);
+    //console.log('dataFromLetterboxd', dataFromLetterboxd)
+    moviesList[i].popularity += dataFromLetterboxd?.watchesCount;
+    moviesListTrends.push(Object.assign(moviesList[i], dataFromLetterboxd));
+    console.log('moviesList: ', moviesListTrends[i]);
   }
-  console.log("data: ", moviesListTrends);
+  //console.log("data: ", moviesList);
   return moviesListTrends;
 };
