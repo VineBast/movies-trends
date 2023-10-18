@@ -11,7 +11,7 @@ function extractHTMLCount(elementHTML: string) {
 
 function tranformMovieName(movieName: string) {
   console.log('movieName:', movieName);
-  const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-');
+  const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-').replace(/-+/g, '-');
   return replacedString;
 }
 
@@ -77,10 +77,12 @@ export const getLetterboxdData = async (moviesList: any) => {
     //moviesListTrends.push(await getTrend(moviesList[i].movieName))
     let dataFromLetterboxd = await getTrend(moviesList[i].movieName, page);
     //console.log('dataFromLetterboxd', dataFromLetterboxd)
-    moviesList[i].popularity += dataFromLetterboxd?.watchesCount;
+    if (dataFromLetterboxd.likesCount === Number) {
+      dataFromLetterboxd.likesCount = moviesList[i].likesCount + dataFromLetterboxd.likesCount;
+    }
     moviesListTrends.push(Object.assign(moviesList[i], dataFromLetterboxd));
     console.log('moviesList: ', moviesListTrends[i]);
   }
-  //console.log("data: ", moviesList);
+  console.log("data: ", moviesList);
   return moviesListTrends;
 };

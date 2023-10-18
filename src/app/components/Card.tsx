@@ -1,6 +1,5 @@
 import { getDataFromTmdb } from "../utils/formatData";
 import { getLetterboxdData } from "../services/letterboxdService";
-import { getMoviesList } from "../services/metacriticService";
 
 /* import got from 'got';
 import { JSDOM } from "jsdom";
@@ -22,7 +21,7 @@ const scrapeData = async () => {
 
 export const Card = async () => {
   //const data = (await getLetterboxdData(await getMoviesList())).sort((a: any, b: any) => b.watchesCount - a.watchesCount);
-  const data = (await getLetterboxdData(await getDataFromTmdb())).sort((a: any, b: any) => b.watchesCount - a.watchesCount);
+  const data = (await getLetterboxdData(await getDataFromTmdb())).sort((a: any, b: any) => ((b.watchesCount - a.watchesCount) + (b.likesCount - a.likesCount)));
 
   return (
     /*     <div>
@@ -32,7 +31,6 @@ export const Card = async () => {
             ))}
           </ol>
         </div> */
-
     <div>
       <ol>
         {(await data).map((movie, index) => {

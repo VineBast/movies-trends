@@ -20,7 +20,7 @@ export const getDataFromTmdb = async () => {
         }
         //movie.poster_path == undefined ? imageLink = 'https://pedagogie.ac-rennes.fr/sites/pedagogie.ac-rennes.fr/local/cache-vignettes/L450xH377/andreykuzmin140400103imagelibrecinema-cb20c.jpg?1680692571' : imageLink = movie.poster_path;
         let imageLink = imageUrl + movie?.poster_path;
-        moviesData.push({ movieName: movie?.title, image: imageLink, popularity: movie?.popularity, tmdbId: movie?.id });
+        moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: movie?.vote_count });
         console.log("moviesData: ", moviesData[i].image)
     }
 
