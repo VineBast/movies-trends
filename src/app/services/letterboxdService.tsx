@@ -75,9 +75,9 @@ export const getLetterboxdData = async (moviesList: any) => {
 
   for (let i = 0; i < moviesList.length; i++) {
     //moviesListTrends.push(await getTrend(moviesList[i].movieName))
-    let dataFromLetterboxd = await getTrend(moviesList[i].movieName, page);
+    let dataFromLetterboxd: any = await getTrend(moviesList[i].movieName, page);
     //console.log('dataFromLetterboxd', dataFromLetterboxd)
-    if (dataFromLetterboxd.likesCount === Number) {
+    if (dataFromLetterboxd?.likesCount === Number) {
       dataFromLetterboxd.likesCount = moviesList[i].likesCount + dataFromLetterboxd.likesCount;
     }
     moviesListTrends.push(Object.assign(moviesList[i], dataFromLetterboxd));
