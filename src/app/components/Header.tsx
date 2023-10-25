@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import trends from "/public/trends.png"
+import movieTrendsLogo from "/public/movieTrendsLogoTypo.png";
 
 export const Header = () => {
 
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
-                <Image width={70} height={70} src={trends} alt={''} />
+                <Image width={150} height={150} src={movieTrendsLogo} alt={'movie trends logo typo'} />
             </div>
             <div className="navbar-center">
             </div>
