@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model dates {
+  dateId      Int           @id @default(autoincrement())
+  date        String?       @db.VarChar(255)
+  movie_dates movie_dates[]
+}
+
+model movie_dates {
+  movieId Int
+  dateId  Int
+  movies  movies @relation(fields: [movieId], references: [movieId], onDelete: NoAction, onUpdate: NoAction, map: "movie_dates_ibfk_1")
+  dates   dates  @relation(fields: [dateId], references: [dateId], onDelete: NoAction, onUpdate: NoAction, map: "movie_dates_ibfk_2")
+
+  @@id([movieId, dateId])
+  @@index([dateId], map: "dateId")
+}
+
+model movies {
+  movieId      Int           @id @default(autoincrement())
+  movieName    String        @db.VarChar(255)
+  image        String        @db.VarChar(255)
+  tmdbId       Int
+  likesCount   Int
+  watchesCount Int
+  movie_dates  movie_dates[]
+}

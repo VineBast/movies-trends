@@ -5,8 +5,8 @@ import { getLetterboxdData } from '../services/letterboxdService';
 
 
 const About = () => {
-  getTmdbMovieByName("taylor-swift--the-eras-tour");
-  getLetterboxdData([{movieName: 'taylor-swift--the-eras-tour'}, {movieName: 'test'}])
+  getTmdbMovieByName("he+went+that+way");
+  getLetterboxdData([{movieName: 'he+went+that+way'}, {movieName: 'test'}])
 
   return (
     <div>

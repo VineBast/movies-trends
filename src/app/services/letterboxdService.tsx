@@ -1,4 +1,6 @@
 import puppeteer, { Page } from 'puppeteer';
+import submitData from './prismaClient';
+import { getLastThursday } from '../utils/dateService';
 
 function extractHTMLCount(elementHTML: string) {
   const match = elementHTML.match(/by (\d+(?:,\d+)*)/);
@@ -10,7 +12,7 @@ function extractHTMLCount(elementHTML: string) {
 }
 
 function tranformMovieName(movieName: string) {
-  console.log('movieName:', movieName);
+  //console.log('movieName:', movieName);
   const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-').replace(/-+/g, '-');
   return replacedString;
 }
@@ -19,7 +21,7 @@ const getTrend = async (movieName: string, page: Page) => {
 
   let transformedMovieName = tranformMovieName(movieName);
 
-  console.log('nom transfo: ', transformedMovieName);
+  //console.log('nom transfo: ', transformedMovieName);
 
   let url = "https://letterboxd.com/film/" + transformedMovieName + "";
 
@@ -81,8 +83,11 @@ export const getLetterboxdData = async (moviesList: any) => {
       dataFromLetterboxd.likesCount = moviesList[i].likesCount + dataFromLetterboxd.likesCount;
     }
     moviesListTrends.push(Object.assign(moviesList[i], dataFromLetterboxd));
-    console.log('moviesList: ', moviesListTrends[i]);
+    //console.log('moviesList: ', moviesListTrends[i]);
   }
-  console.log("data: ", moviesList);
+  //console.log("data: ", moviesList);
+  moviesListTrends.forEach((movie) => {
+    submitData(movie, getLastThursday().toJSON().slice(0,10));
+  })
   return moviesListTrends;
 };

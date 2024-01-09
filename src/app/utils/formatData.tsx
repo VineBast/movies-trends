@@ -1,5 +1,7 @@
 import { getMoviesList } from "../services/metacriticService"
+import submitData from "../services/prismaClient";
 import { getTmdbMovieByName } from "../services/tmdbService";
+import { getLastThursday } from "./dateService";
 
 const imageUrl = 'https://image.tmdb.org/t/p/original';
 
@@ -12,16 +14,29 @@ export const getDataFromTmdb = async () => {
     let moviesList = await getMoviesList();
     let moviesData = [];
 
+    const formatMovieName = (movieName: string) => {
+        const firstSpaceIndex = movieName.indexOf(' ');
+
+        if (firstSpaceIndex !== -1) {
+            const newMovieName = movieName.substring(0, firstSpaceIndex) + movieName.substring(firstSpaceIndex + 1);
+            return newMovieName;
+        } else {
+            return movieName;
+        }
+    }
+
     for (let i = 0; i < moviesList.length; i++) {
-        let movie = await getTmdbMovieByName(moviesList[i].movieName);
+        let movie = await getTmdbMovieByName(formatMovieName(moviesList[i].movieName));
         //console.log('movie: ', movie);
         if (movie.poster_path == undefined) {
             console.log('undef')
         }
         //movie.poster_path == undefined ? imageLink = 'https://pedagogie.ac-rennes.fr/sites/pedagogie.ac-rennes.fr/local/cache-vignettes/L450xH377/andreykuzmin140400103imagelibrecinema-cb20c.jpg?1680692571' : imageLink = movie.poster_path;
         let imageLink = imageUrl + movie?.poster_path;
+        //let formatedMovieName = formatMovieName(movie.title);
         moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: movie?.vote_count });
-        console.log("moviesData: ", moviesData[i].image)
+        //submitData(moviesData[i]);
+        //console.log("moviesData: ", moviesData[i].image)
     }
 
     //console.log('moviesData', moviesData);
