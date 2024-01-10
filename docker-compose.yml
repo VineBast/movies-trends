@@ -9,17 +9,17 @@ services:
       MYSQL_USER: movietrends
       MYSQL_PASSWORD: Movietrends2198!
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Montez le fichier init.sql dans le conteneur MySQL
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Montez le fichier init.sql dans le conteneur MySQL
     ports:
       - "3306:3306"
 
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     depends_on:
       - db
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: mysql://movietrends:Movietrends2198!@movies-trends-db-1:3306/movietrends  # Utilisez les mêmes informations que dans la configuration de la base de données
+      DATABASE_URL: mysql://movietrends:Movietrends2198!@movies-trends-db-1:3306/movietrends
