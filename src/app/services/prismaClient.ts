@@ -6,13 +6,17 @@ const prisma = new PrismaClient();
 
 export default async function submitData(movieData: any, dateString: string) {
   try {
-
-
-    let existingDate = await prisma.dates.findFirst({
-      where: {
-        date: dateString,
-      },
-    });
+    let existingDate;
+    
+    try {
+      existingDate = await prisma.dates.findFirst({
+        where: {
+          date: dateString,
+        },
+      });
+    } catch (error) {
+      console.error('Erreur :', error);
+    }
 
     if (!existingDate) {
       existingDate = await prisma.dates.create({
@@ -22,11 +26,17 @@ export default async function submitData(movieData: any, dateString: string) {
       })
     }
 
-    let existingMovie = await prisma.movies.findFirst({
-      where: {
-        movieName: movieData.movieName,
-      },
-    });
+    let existingMovie;
+
+    try {
+      existingMovie = await prisma.movies.findFirst({
+        where: {
+          movieName: movieData.movieName,
+        },
+      });
+    } catch (error) {
+      console.error('Erreur :', error);
+    }
 
     if (!existingMovie) {
       existingMovie = await prisma.movies.create({
@@ -59,10 +69,9 @@ export default async function submitData(movieData: any, dateString: string) {
 
     return { success: true };
   } catch (error) {
-    console.error('Erreur lors de la soumission des données :', error);
+    console.error('Erreur :', error);
     return { success: false, error };
   } finally {
-    // Fermer la connexion Prisma
     await prisma.$disconnect();
   }
 }
