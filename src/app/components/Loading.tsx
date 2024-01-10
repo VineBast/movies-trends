@@ -9,11 +9,7 @@ export const Loading = () => {
                 <pre data-prefix="~"><code>Wait few seconds, should be scrapped soon :</code></pre>
                 <pre data-prefix="$" className="text-success"><code>npm start movietrends</code></pre>
                 <pre data-prefix=">" className="text-warning"><code>scrapping <span className="loading loading-ball loading-sm"></span><span className="loading loading-ball loading-sm"></span><span className="loading loading-ball loading-sm"></span></code></pre>
-
             </div>
-
-            
-
         </>
     )
 }

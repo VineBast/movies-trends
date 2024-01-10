@@ -32,7 +32,7 @@ export default async function handle(req: any, res: any) {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* row 1 */}
+                            {/* row */}
                             {movies.map((movie) => (
                                 <tr>
                                     <td>

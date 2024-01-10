@@ -7,11 +7,8 @@ const options = {
 };
 
 export const getTmdbMovieByName = async (movieName: string) => {
-    //console.log("movieName dans tmdb:", movieName)
     let response = await fetch('https://api.themoviedb.org/3/search/movie?query=' + movieName + '&include_adult=false&primary_release_year=2023&page=1', options);
     let movies = await response.json();
-    //const data = JSON.stringify(movies);
-    //console.log('data: ', movies)
     if (movies.results[0] == undefined) {
         response = await fetch('https://api.themoviedb.org/3/search/movie?query=' + movieName + '&include_adult=false&primary_release_year=2024&page=1', options);
         movies = await response.json();

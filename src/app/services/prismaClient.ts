@@ -1,7 +1,5 @@
-// Importer le client Prisma généré
 import { PrismaClient } from '@prisma/client';
 
-// Instancier le client Prisma
 const prisma = new PrismaClient();
 
 export default async function submitData(movieData: any, dateString: string) {

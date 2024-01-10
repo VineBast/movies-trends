@@ -1,36 +1,10 @@
 import { getDataFromTmdb } from "../utils/formatData";
 import { getLetterboxdData } from "../services/letterboxdService";
 
-/* import got from 'got';
-import { JSDOM } from "jsdom";
-
-const scrapeData = async () => {
-    got("https://letterboxd.com/film/barbie")
-        .then(async (response) => {
-            const dom = new JSDOM(response.body);
-            console.log(dom?.window.document.body.querySelector('.content-wrap')?.querySelector('#film-page-wrapper')?.querySelector('#js-poster-col')?.querySelector('.poster-list')?.querySelector('.film-stats')?.querySelector('.filmstat-watches'))
-            return dom;
-        })
-        .then(async (response) => {
-            //console.log(response)
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-} */
-
 export const Card = async () => {
-  //const data = (await getLetterboxdData(await getMoviesList())).sort((a: any, b: any) => b.watchesCount - a.watchesCount);
   const data = (await getLetterboxdData(await getDataFromTmdb())).sort((a: any, b: any) => ((b.watchesCount - a.watchesCount) + (b.likesCount - a.likesCount)));
 
   return (
-    /*     <div>
-          <ol>
-            {(await data).map((movie) => (
-              <li key={movie.movieName}>{movie.movieName} : {movie.watchesCount} watches,  {movie.likesCount} likes</li>
-            ))}
-          </ol>
-        </div> */
     <div>
       <ol>
         {(await data).map((movie, index) => {
@@ -59,11 +33,6 @@ export const Card = async () => {
                   <div className="stat-title">Total Likes</div>
                   <div className="stat-value text-primary">{movie.likesCount}</div>
                 </div>
-
-                {/* <div className="stat">
-                <div className="stat-value">86%</div>
-                <div className="stat-title">Tasks done</div>
-              </div> */}
               </div>
             </li>
           )
