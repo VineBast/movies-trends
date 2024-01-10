@@ -22,7 +22,7 @@ Deux autres pages sont disponibles : [http://localhost:3000/movies](http://local
 
 Si l'une des pages n'est pas fonctionnelle, ne pas hésiter à supprimer les conteneurs et les images et relancer `docker-compose up`, un problème peut vite se glisser au téléchargement.
 
-L'image a été testée sur plusieurs environnements (Mac M1, Fedora, Windows 11), elle devrait être fonctionnelle, mais si jamais le problème persiste, passez à l'étape suivante avec le lancement en local (ou reverifier que Docker est bien à jour !).
+Les images ont été testées sur plusieurs environnements (Mac M1, Fedora, Windows 11), elle devrait être fonctionnelle, mais si jamais le problème persiste, passez à l'étape suivante avec le lancement en local (ou reverifier que Docker est bien à jour !).
 
 ## Lancer le projet en local
 
@@ -81,6 +81,6 @@ npx prisma generate
 ```
 Le projet peut maintenant être lancé avec :
 ```bash
-start dev
+yarn dev
 ```
 Si jamais des soucis persistent (mais il n'y pas de raison), n'hésitez pas à me contacter je pourrais essayer de fournir un environnement déployé.
