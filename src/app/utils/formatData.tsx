@@ -3,28 +3,25 @@ import { getTmdbMovieByName } from "../services/tmdbService";
 
 const imageUrl = 'https://image.tmdb.org/t/p/original';
 
-const formatData = async () => {
-    let movies = await getDataFromTmdb();
-
-}
-
 export const getDataFromTmdb = async () => {
     let moviesList = await getMoviesList();
     let moviesData = [];
 
-    for (let i = 0; i < moviesList.length; i++) {
-        let movie = await getTmdbMovieByName(moviesList[i].movieName);
-        //console.log('movie: ', movie);
-        if (movie.poster_path == undefined) {
-            console.log('undef')
+    const formatMovieName = (movieName: string) => {
+        const firstSpaceIndex = movieName.indexOf(' ');
+
+        if (firstSpaceIndex !== -1) {
+            const newMovieName = movieName.substring(0, firstSpaceIndex) + movieName.substring(firstSpaceIndex + 1);
+            return newMovieName;
+        } else {
+            return movieName;
         }
-        //movie.poster_path == undefined ? imageLink = 'https://pedagogie.ac-rennes.fr/sites/pedagogie.ac-rennes.fr/local/cache-vignettes/L450xH377/andreykuzmin140400103imagelibrecinema-cb20c.jpg?1680692571' : imageLink = movie.poster_path;
-        let imageLink = imageUrl + movie?.poster_path;
-        moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: movie?.vote_count });
-        console.log("moviesData: ", moviesData[i].image)
     }
 
-    //console.log('moviesData', moviesData);
-
+    for (let i = 0; i < moviesList.length; i++) {
+        let movie = await getTmdbMovieByName(formatMovieName(moviesList[i].movieName));
+        let imageLink = imageUrl + movie?.poster_path;
+        moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: movie?.vote_count });
+    }
     return moviesData;
 }

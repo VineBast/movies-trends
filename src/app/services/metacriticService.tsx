@@ -19,6 +19,5 @@ export const getMoviesList = async () => {
             return { movieName: element.querySelector('h3')?.textContent, releaseDate: element.querySelectorAll('span')[1]?.textContent };
         });
     });
-    console.log("metaMovies: ", movies);
     return (filterMoviesByDate(movies))
 }
