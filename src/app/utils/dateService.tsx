@@ -14,6 +14,7 @@ function isLastThursdayPast(dateString: string) {
 }
 
 export function filterMoviesByDate(data: any) {
+    console.log('last friday : ', getLastThursday().toJSON().slice(0,10))
     const filteredData = data.filter((item: any) => {
         if (isLastThursdayPast(item.releaseDate)) {
             return item;

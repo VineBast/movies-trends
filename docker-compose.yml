@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  # Service pour la base de données MySQL
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: movietrends
+      MYSQL_USER: movietrends
+      MYSQL_PASSWORD: Movietrends2198!
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Montez le fichier init.sql dans le conteneur MySQL
+    ports:
+      - "3306:3306"  # Port pour accéder à la base de données
+
+  # Service pour l'application Node.js
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"  # Port pour accéder à votre application Node.js
+    environment:
+      DATABASE_URL: mysql://movietrends:Movietrends2198!@localhost:3306/movietrends  # Utilisez les mêmes informations que dans la configuration de la base de données

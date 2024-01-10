@@ -1,5 +1,7 @@
 import { getMoviesList } from "../services/metacriticService"
+import submitData from "../services/prismaClient";
 import { getTmdbMovieByName } from "../services/tmdbService";
+import { getLastThursday } from "./dateService";
 
 const imageUrl = 'https://image.tmdb.org/t/p/original';
 

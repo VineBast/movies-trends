@@ -12,6 +12,10 @@ function extractHTMLCount(elementHTML: string) {
 }
 
 function tranformMovieName(movieName: string) {
+<<<<<<< Updated upstream
+=======
+  //console.log('movieName:', movieName);
+>>>>>>> Stashed changes
   const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-').replace(/-+/g, '-');
   return replacedString;
 }
@@ -19,6 +23,12 @@ function tranformMovieName(movieName: string) {
 const getTrend = async (movieName: string, page: Page) => {
 
   let transformedMovieName = tranformMovieName(movieName);
+<<<<<<< Updated upstream
+=======
+
+  //console.log('nom transfo: ', transformedMovieName);
+
+>>>>>>> Stashed changes
   let url = "https://letterboxd.com/film/" + transformedMovieName + "";
 
   await page.goto(url, {
