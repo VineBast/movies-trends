@@ -2,7 +2,9 @@
 > Vincent RODRIGUEZ
 ## Lancer movie-trends avec docker-compose
 
-Pull le projet et lancer docker-compose :
+En premier lieu (très important), **mettre à jour Docker.**
+
+Puis pull le projet et lancer `docker-compose` :
 
 ```bash
 git clone git@github.com:VineBast/movies-trends.git
@@ -16,15 +18,15 @@ Lorsque que le docker compose est terminé aller sur : [http://localhost:3000](h
 
 Deux autres pages sont disponibles : [http://localhost:3000/movies](http://localhost:3000/movies) et : [http://localhost:3000/about](http://localhost:3000/about)
 
-> Pour info : le home (/) utilise le scrapper puppeteer, le /movies interroge la base de données mysql avec l'ORM Prisma et le /about est statique.
+> Pour info : le home `/` utilise le scrapper Puppeteer, le `/movies` interroge la base de données mysql avec l'ORM Prisma et le `/about` est statique.
 
-Si l'une des pages n'est pas fonctionnelle, ne pas hésiter à supprimer les conteneurs et les images et relancer docker-compose, un problème peut vite se glisser au téléchargement.
+Si l'une des pages n'est pas fonctionnelle, ne pas hésiter à supprimer les conteneurs et les images et relancer `docker-compose up`, un problème peut vite se glisser au téléchargement.
 
-L'image a été testée sur plusieurs environnements, elle devrait être fonctionnelle, mais si jamais le problème persiste, passez à l'étape suivante.
+L'image a été testée sur plusieurs environnements (Mac M1, Fedora, Windows 11), elle devrait être fonctionnelle, mais si jamais le problème persiste, passez à l'étape suivante avec le lancement en local (ou reverifier que Docker est bien à jour !).
 
-## Ou lancer le projet en local
+## Lancer le projet en local
 
-Premièrement, allez à la racine du projet et modifier le .env
+Premièrement, allez à la racine du projet et modifier le `.env`
 
 ```bash
 # remplacer :
@@ -33,7 +35,7 @@ DATABASE_URL="mysql://movietrends:Movietrends2198!@movies-trends-db-1:3306/movie
 # par :
 DATABASE_URL="mysql://movietrends:Movietrends2198!@localhost:3306/movietrends"
 ```
-Lancer mysql (l'installer si besoin) et executer le script suivant (qui est aussi disponible à la racine du projet init.sql) :
+Lancer `mysql` (l'installer si besoin) et executer le script suivant (qui est aussi disponible à la racine du projet : `init.sql`) :
 ```sql
 CREATE DATABASE `movietrends`;
 
@@ -81,4 +83,4 @@ Le projet peut maintenant être lancé avec :
 ```bash
 start dev
 ```
-Si jamais des soucis persistent (mais il n'y pas de raison), n'hésitez pas à me contacter je pourrais fournir un environnement en ligne.
+Si jamais des soucis persistent (mais il n'y pas de raison), n'hésitez pas à me contacter je pourrais essayer de fournir un environnement déployé.
