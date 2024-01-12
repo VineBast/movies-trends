@@ -48,7 +48,7 @@ export default async function handle(req: any, res: any) {
                                         </div>
                                     </td>
                                     <td>
-                                        <span className="badge badge-ghost badge-sm">{movies[0].movie_dates[0].dates.date}</span>
+                                        <span className="badge badge-ghost badge-sm">{movie.movie_dates[0].dates.date}</span>
                                     </td>
                                     <td>{movie.watchesCount}</td>
                                     <th>
