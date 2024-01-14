@@ -22,7 +22,7 @@ Deux autres pages sont disponibles : [http://localhost:3000/movies](http://local
 
 Si l'une des pages n'est pas fonctionnelle, ne pas hésiter à supprimer les conteneurs et les images et relancer `docker-compose up`, un problème peut vite se glisser au téléchargement.
 
-Les images ont été testées sur plusieurs environnements (Mac M1, Fedora, Windows 11), elle devrait être fonctionnelle, mais si jamais le problème persiste, passez à l'étape suivante avec le lancement en local (ou reverifier que Docker est bien à jour !).
+Les images ont été testées sur plusieurs environnements (Mac M1, Fedora, Windows 11), elles devraient être fonctionnelles, mais si jamais le problème persiste, passez à l'étape suivante avec le lancement en local (ou reverifier que Docker est bien à jour !).
 
 ## Lancer le projet en local
 
