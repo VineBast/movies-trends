@@ -9,7 +9,7 @@ export const getMoviesList = async () => {
 
     const page = await browser.newPage();
 
-    await page.goto("https://www.metacritic.com/browse/movie/all/all/all-time/new/?releaseType=in-theaters&releaseYearMin=1910&releaseYearMax=2023&page=1", {
+    await page.goto("https://www.metacritic.com/browse/movie/all/all/all-time/new/?releaseType=in-theaters&releaseYearMin=1910&releaseYearMax=2024&page=1", {
         waitUntil: "domcontentloaded",
     });
 

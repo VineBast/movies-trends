@@ -21,7 +21,8 @@ export const getDataFromTmdb = async () => {
     for (let i = 0; i < moviesList.length; i++) {
         let movie = await getTmdbMovieByName(formatMovieName(moviesList[i].movieName));
         let imageLink = imageUrl + movie?.poster_path;
-        moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: movie?.vote_count });
+        let voteCount = movie?.vote_count * 7;
+        moviesData.push({ movieName: movie?.title, image: imageLink, tmdbId: movie?.id, likesCount: voteCount });
     }
     return moviesData;
 }
