@@ -12,7 +12,7 @@ function extractHTMLCount(elementHTML: string) {
 }
 
 function tranformMovieName(movieName: string) {
-  const replacedString = movieName.trim().toLowerCase().replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '-').replace(/-+/g, '-');
+  const replacedString = movieName.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ *\([^)]*\) */g, '').replace(/[^a-zA-Z0-9 -]/g, '').replace(/^-+|-+$/g, '').replace(/ /g, '-').replace(/-{2,}/g, '-');  
   return replacedString;
 }
 
